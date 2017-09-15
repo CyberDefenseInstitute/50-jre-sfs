@@ -13,4 +13,4 @@ java_topdir="$(tar tfz "$jre_tgz" | head -1 | tr -d /)"
 
 ln -s "$java_topdir" "$DESTDIR/opt/jre"
 
-find "$DESTDIR/opt/jre/bin" -mindepth 1 -maxdepth 1 -perm +1 -exec sh -c 'for f;do ln -s _jre_exec.sh "$DESTDIR/opt/bin/${f##*/}";done' _ {} +
+find "$DESTDIR/opt/jre/bin" -mindepth 1 -maxdepth 1 -perm /1 -exec sh -c 'for f;do ln -s _jre_exec.sh "$DESTDIR/opt/bin/${f##*/}";done' _ {} +
