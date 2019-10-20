@@ -1,16 +1,13 @@
 #!/bin/sh
 
-: ${lbu:=/opt/LiveBootUtils}
-. "$lbu/scripts/common.func"
+set -e
+. "$(dirname "$0")/.common.sh"
 
-: "${jre_bundle_id:=240718_5b13a193868b4bf28bcb45c792fce896}"
-: "${jre_url:=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=$jre_bundle_id}"
-
-: ${jre_tgz:=$(dl_file "$jre_url")}
+: "${jre_tgz:=$(dl_file "$(jre_url)")}"
 
 tar xfz "$jre_tgz" -C "$DESTDIR/opt" --no-same-owner
 
-java_topdir="$(tar tfz "$jre_tgz" | head -1 | tr -d /)"
+: "${java_topdir:=$(tar tfz "$jre_tgz" --exclude '*/*' | head -1 | tr -d /)}"
 
 ln -s "$java_topdir" "$DESTDIR/opt/jre"
 
